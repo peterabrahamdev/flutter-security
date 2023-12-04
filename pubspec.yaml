@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   local_auth: ^2.1.7
   logger: ^2.0.2+1
+  secure_application: ^3.8.0
 
 dev_dependencies:
   flutter_test:

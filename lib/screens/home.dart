@@ -16,7 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> authenticate() async {
     LocalAuthentication auth = LocalAuthentication();
     try {
-      final bool didAuthenticate = await auth.authenticate(
+      await auth.authenticate(
         localizedReason: 'Authenticate yourself to continue',
         options: const AuthenticationOptions(
           biometricOnly: true,

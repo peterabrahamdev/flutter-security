@@ -11,6 +11,17 @@ class AuthForm extends StatefulWidget {
 class _AuthFormState extends State<AuthForm> {
   final _formKey = GlobalKey<FormState>();
 
+  var _enteredUsername = '';
+  var _enteredPassword = '';
+
+  void _submit() {
+    var isValid = _formKey.currentState!.validate();
+    if (!isValid) {
+      return;
+    }
+    _formKey.currentState!.save();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -28,6 +39,9 @@ class _AuthFormState extends State<AuthForm> {
               }
               return null;
             },
+            onSaved: (value) {
+              _enteredUsername = value!;
+            },
           ),
           TextFormField(
             decoration: const InputDecoration(
@@ -40,7 +54,15 @@ class _AuthFormState extends State<AuthForm> {
               }
               return null;
             },
+            onSaved: (value) {
+              _enteredPassword = value!;
+            },
           ),
+          const Gap(30),
+          ElevatedButton(
+            onPressed: _submit,
+            child: const Text('Save data'),
+          )
         ]),
       ),
     );

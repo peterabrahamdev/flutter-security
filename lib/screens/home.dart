@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_security/widgets/form.dart';
+import 'package:gap/gap.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:logger/logger.dart';
 
@@ -31,11 +33,15 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Flutter Security')),
-      body: Center(
-        child: ElevatedButton(
-          child: const Text('Press to authenticate'),
-          onPressed: () => authenticate(),
-        ),
+      body: Column(
+        children: [
+          const AuthForm(),
+          const Gap(30),
+          ElevatedButton(
+            child: const Text('Press to authenticate'),
+            onPressed: () => authenticate(),
+          ),
+        ],
       ),
     );
   }

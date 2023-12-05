@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_security/utils/user_secure_storage.dart';
 import 'package:gap/gap.dart';
 
 class AuthForm extends StatefulWidget {
@@ -14,12 +15,15 @@ class _AuthFormState extends State<AuthForm> {
   var _enteredUsername = '';
   var _enteredPassword = '';
 
-  void _submit() {
+  void _submit() async {
     var isValid = _formKey.currentState!.validate();
     if (!isValid) {
       return;
     }
     _formKey.currentState!.save();
+    await UserSecureStorage.setUsername(_enteredUsername);
+    await UserSecureStorage.setPassword(_enteredPassword);
+    setState(() {});
   }
 
   @override
@@ -62,7 +66,29 @@ class _AuthFormState extends State<AuthForm> {
           ElevatedButton(
             onPressed: _submit,
             child: const Text('Save data'),
-          )
+          ),
+          const Gap(30),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              FutureBuilder(
+                  future: UserSecureStorage.getUsername(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Text('Username: ${snapshot.data}');
+                    }
+                    return const CircularProgressIndicator();
+                  }),
+              FutureBuilder(
+                  future: UserSecureStorage.getPassword(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Text('Password: ${snapshot.data}');
+                    }
+                    return const CircularProgressIndicator();
+                  })
+            ],
+          ),
         ]),
       ),
     );

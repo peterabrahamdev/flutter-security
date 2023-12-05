@@ -37,6 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           const AuthForm(),
           const Gap(30),
+          const Divider(),
           ElevatedButton(
             child: const Text('Press to authenticate'),
             onPressed: () => authenticate(),
